@@ -1,0 +1,15 @@
+<div v-if="ready">
+  <h2>Proxied resources</h2>
+
+  <div>
+    <span href="#" v-for="project in projects">
+      <a v-link="{ path: project.url }" class="btn btn-default">
+        {{project.name}}
+      </a>
+    </span>
+  </div>
+
+  <div>
+    <router-view></router-view>
+  </div>
+</div>

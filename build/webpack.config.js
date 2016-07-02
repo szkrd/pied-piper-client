@@ -5,11 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
-    app: [ './src/app.js' ],
-    vendor: [ 'vue', 'vue-router' ]
+    app: [ 'babel-polyfill', './src/app.js' ],
+    vendor: [ 'vue', 'vue-router', 'jquery', 'bootstrap' ]
   },
   output: {
-    path: path.resolve('./dist'), // this MUST be an absolute path
+    path: path.resolve(__dirname, '../dist'), // this MUST be an absolute path
     filename: 'app_bundle.js'
   },
   plugins: [
@@ -21,7 +21,15 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       API_URL: JSON.stringify(config.apiUrl)
-    })
+    }),
+    new webpack.ProvidePlugin({ // bootstrap
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
+    new webpack.NormalModuleReplacementPlugin(
+      /^(net|dns)$/,
+      path.resolve(__dirname, '../src/utils/serverShim.js')
+    )
   ],
   module: {
     loaders: [
@@ -30,16 +38,25 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015']
+          presets: ['es2015', 'stage-0'],
+          plugins: ['transform-regenerator']
         }
       },
       {
         test: /\.less$/,
-        loader: 'style!css!less'
+        loader: 'style!css!postcss!less'
       },
       {
         test: /\.html$/,
         loader: 'html'
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=10000&minetype=application/font-woff'
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
       }
     ]
   }

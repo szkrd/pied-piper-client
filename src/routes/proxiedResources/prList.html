@@ -1,0 +1,22 @@
+<table class="table table-hover">
+  <caption>Requests and responses</caption>
+  <thead>
+    <tr>
+      <th>method</th>
+      <th>url</th>
+      <th>status code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="resource in resources" :class="{
+      info: resource.request.method === 'GET',
+      warning: resource.request.method === 'POST',
+      success: resource.request.method === 'PUT',
+      danger: resource.request.method === 'DELETE'
+    }" @click="openResource(resource)">
+      <td>{{resource.request.method}}</td>
+      <td>{{resource.request.uri}}</td>
+      <td>{{resource.response.statusCode}}</td>
+    </tr>
+  </tbody>
+</table>

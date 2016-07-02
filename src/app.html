@@ -1,4 +1,24 @@
-<h2>Vue Base Template</h2>
-<a v-link="{ path: '/vue-test/hello_world' }">Go to Test Route</a>
-<hr>
-<router-view></router-view>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Pied Piper Admin</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li v-link-active><a v-link="{ path: '/', exact: true }">Home</a></li>
+        <li v-link-active><a v-link="{ path: '/config' }">Config</a></li>
+        <li v-link-active><a v-link="{ path: '/proxied-resources' }">Proxied Resources</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+<div class="container">
+  <router-view></router-view>
+</div><!-- /.container -->

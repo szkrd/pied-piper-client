@@ -8,7 +8,6 @@ const devPort = clientConfig.devPort
 config.entry.app.unshift(`webpack-dev-server/client?http://localhost:${devPort}/`)
 
 const devServer = new WebpackDevServer(webpack(config), {
-  noInfo: true,
   stats: { colors: true },
   hot: true
 })
