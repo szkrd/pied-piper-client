@@ -1,12 +1,18 @@
 /*global API_URL*/
-import { getJSON } from './utils/fetch'
-const urlAll = (project) => `${API_URL}/proxied-resources/${project}`
-const urlSingle = (project, id) => `${API_URL}/proxied-resource/${project}/${id}`
+import { getJSON, putJSON, deleteJSON } from './utils/fetch'
 
 export function getAll (project) {
-  return getJSON(urlAll(project))
+  return getJSON(`${API_URL}/proxied-resources/${project}`)
 }
 
 export function get (project, id) {
-  return getJSON(urlSingle(project, id))
+  return getJSON(`${API_URL}/proxied-resource/${project}/${id}`)
+}
+
+export function remove (project, id) {
+  return deleteJSON(`${API_URL}/proxied-resource/${project}/${id}`)
+}
+
+export function toggle (project, id) {
+  return putJSON(`${API_URL}/proxied-resource/toggle/${project}/${id}`)
 }

@@ -1,37 +1,7 @@
 @import '~bootstrap/less/bootstrap.less';
+@import './styles/forms';
+@import './styles/helpers';
 
 body {
   padding-top: 60px;
-}
-
-// vue gobbles whitespace
-.label--with-spacing {
-  margin-right: 10px;
-  &:last-child {
-    margin-right: 0;
-  }
-}
-
-// label + right aligned button next to input broke
-.input-group--label-group-btn {
-  .input-group-btn {
-    vertical-align: bottom;
-    button {
-      height: 34px;
-    }
-  }
-}
-
-.horizontal-checkbox-group {
-  .checkbox {
-    margin-top: 0;
-    margin-right: 10px;
-    display: inline-block;
-    &:last-child {
-      margin-right: 0;
-    }
-    input[type="checkbox"] {
-      margin-top: 5px;
-    }
-  }
 }

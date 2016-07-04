@@ -5,6 +5,8 @@
       <th>method</th>
       <th>url</th>
       <th>status code</th>
+      <th>disabled</th>
+      <th>actions</th>
     </tr>
   </thead>
   <tbody>
@@ -13,10 +15,29 @@
       warning: resource.request.method === 'POST',
       success: resource.request.method === 'PUT',
       danger: resource.request.method === 'DELETE'
-    }" @click="openResource(resource)">
+    }">
       <td>{{resource.request.method}}</td>
-      <td>{{resource.request.uri}}</td>
+      <td>
+        <a v-link="{ name: 'resource', params: { project: project, id: resource._id }}">
+          {{resource.request.uri}}
+        </a>
+        <br>
+        <span class="unimportant">
+          {{resource._id}}
+        </span>
+      </td>
       <td>{{resource.response.statusCode}}</td>
+      <td>
+        <input type="checkbox" v-model="resource.disabled" @change="toggleResource(resource)" />
+      </td>
+      <td class="nowrap">
+        <button type="button" class="btn btn-xs btn-info" @click="openResource(resource)">
+          <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-xs btn-danger" @click="deleteResource(resource)">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
