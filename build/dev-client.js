@@ -1,4 +1,3 @@
-require('dotenv')
 const webpack = require('webpack')
 const config = require('./webpack.config')
 const clientConfig = require('../config/client')
