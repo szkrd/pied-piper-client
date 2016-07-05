@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-8">
       <form>
-        <h2>Pre flight</h2>
+        <h2>Pre flight server settings</h2>
         <!-- env -->
         <div class="form-group">
           <label for="pf-env">Environment</label>
@@ -15,7 +15,7 @@
         </div>
         <!-- target -->
         <div class="form-group">
-          <label for="pf-target">Target</label>
+          <label for="pf-target">Remote target</label>
           <input type="email" class="form-control" id="pf-target" v-model="config.preFlight.target" readonly />
         </div>
         <div class="form-group">
@@ -33,36 +33,59 @@
         <div class="form-group">
           <div class="checkbox">
             <label>
-              <input type="checkbox" v-model="config.active" /> active
+              <input type="checkbox" v-model="config.active" />
+              active
             </label>
+            <span class="unimportant">
+              (if not active, will always request from remote party; global sleep may still be active)
+            </span>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" v-model="config.recording" /> recording
+              <input type="checkbox" v-model="config.recording" />
+              recording
             </label>
+            <span class="unimportant">
+              (save response to db?)
+            </span>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" v-model="config.dump" /> dump
+              <input type="checkbox" v-model="config.strict" />
+              strict mode
             </label>
+            <span class="unimportant">
+              (match with request body, not just request method and uri)
+            </span>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" v-model="config.dump" />
+              dump
+            </label>
+            <span class="unimportant">
+              (save json files on server into <i>dumps</i> folder)
+            </span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group input-group--label-group-btn">
-            <label for="rt-sleep">Sleep</label>
-            <input type="number" class="form-control" id="rt-sleep" v-model="config.sleep" />
+            <label for="rt-sleep">Global sleep (sec)</label>
+            <input type="number" min="0" max="10" class="form-control" id="rt-sleep" v-model="config.sleep" />
             <span class="input-group-btn">
               <button class="btn btn-default" type="button" @click="updateSleep">set</button>
             </span>
           </div>
         </div>
         <div class="form-group">
-          <label>Disabled projects</label>
+          <label>Disable projects</label>
           <div class="horizontal-checkbox-group">
             <span class="checkbox" v-for="project in projects">
               <label>
                 <input type="checkbox" :value="project" v-model="config.disabledProjects">
-                {{project}}
+                <span :class="{strike: config.disabledProjects.includes(project)}">
+                  {{project}}
+                </span>
               </label>
             </span>
           </div>
