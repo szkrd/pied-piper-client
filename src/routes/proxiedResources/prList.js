@@ -28,10 +28,13 @@ export default VueCo({
       const params = joiValidate(this.$route.params, paramsSchema)
       const project = params.project
       storage.activeProject = project
-      const items = yield proxiedResourcesModel.getAll(project)
       this.project = project
-      this.resources = items
+      yield this.getAll()
       Vue.nextTick(() => { this.ready = true })
+    },
+    getAll: function * () {
+      const items = yield proxiedResourcesModel.getAll(this.project)
+      this.resources = items
     },
     toggleResource (resource) {
       proxiedResourcesModel.toggle(this.project, resource._id)
@@ -40,6 +43,10 @@ export default VueCo({
     deleteResource: function * (resource) {
       yield proxiedResourcesModel.remove(this.project, resource._id)
       this.resources.$remove(resource)
+    },
+    deleteAllResources: function * () {
+      yield proxiedResourcesModel.removeAll(this.project)
+      yield this.getAll()
     },
     // TODO move to view/link
     openResource (resource) {

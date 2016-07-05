@@ -13,6 +13,10 @@ export function remove (project, id) {
   return deleteJSON(`${API_URL}/proxied-resource/${project}/${id}`)
 }
 
+export function removeAll (project, id) {
+  return deleteJSON(`${API_URL}/proxied-resources/${project}`)
+}
+
 export function toggle (project, id) {
   return putJSON(`${API_URL}/proxied-resource/toggle/${project}/${id}`)
 }
