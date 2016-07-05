@@ -1,7 +1,5 @@
 import 'bootstrap'
 import Vue from 'vue'
-import VueX from 'vuex'
-Vue.use(VueX)
 import VueRouter from 'vue-router'
 import RouteConfig from './routes/config/config'
 import RouteHome from './routes/home/home'
