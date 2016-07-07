@@ -5,12 +5,14 @@ import RouteConfig from './routes/config/config'
 import RouteHome from './routes/home/home'
 import RouteProxiedResources from './routes/proxiedResources/proxiedResources'
 import RouteProxiedResourceList from './routes/proxiedResources/prList'
-import RouteProxiedResourceItem from './routes/proxiedResources/prItem'
+import RouteProxiedResourceItem from './routes/proxiedResources/prItem/prItem'
+import HighlightJsDirective from './directives/highlightJs'
 
 import './app.less'
 import template from './app.html'
 
 Vue.use(VueRouter)
+Vue.directive('highlightjs', HighlightJsDirective)
 
 document.body.setAttribute('id', 'app')
 const router = new VueRouter({

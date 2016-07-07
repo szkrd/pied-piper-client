@@ -1,0 +1,154 @@
+<div v-if="ready">
+
+  <div class="btn-group pull-right" role="group">
+    <button type="button" class="btn btn-default"
+            :class="{active: view === 'formatted'}" @click="view='formatted'">formatted</button>
+    <button type="button" class="btn btn-default"
+            :class="{active: view === 'raw'}" @click="view='raw'">raw</button>
+  </div>
+  <h2>Proxied resource</h2>
+
+  <div v-if="view === 'formatted'">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          Meta
+        </h3>
+      </div>
+      <div class="panel-body">
+
+        <!-- disabled -->
+        <div class="row">
+          <div class="col-sm-3">
+            <label :class="{
+                'text-success': !resource.disabled,
+                'text-danger': resource.disabled
+              }">
+                {{ resource.disabled ? 'Disabled' : 'Enabled' }}
+            </label>
+          </div>
+        </div>
+
+        <!-- sleep -->
+        <div class="row" v-if="resource.sleep">
+          <div class="col-sm-3">
+            <label>Sleep</label>
+          </div>
+          <div class="col-sm-9">
+            {{ resource.sleep || 0 }}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================================================================= -->
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <span class="glyphicon glyphicon-arrow-up"></span>
+          Request
+        </h3>
+      </div>
+      <div class="panel-body">
+
+        <!-- method -->
+        <div class="row">
+          <div class="col-sm-3">
+            <label>Method</label>
+          </div>
+          <div class="col-sm-9">
+            {{ resource.request.method }}
+          </div>
+        </div>
+
+        <!-- url -->
+        <div class="row">
+          <div class="col-sm-3">
+            <label>Url</label>
+          </div>
+          <div class="col-sm-9">
+            <uri-target
+              :uri="resource.request.uri"
+              :target="resource.request.target"></uri-target>
+          </div>
+        </div>
+
+        <!-- headers -->
+        <div class="row">
+          <div class="col-sm-3">
+            <label>Headers</label>
+          </div>
+          <div class="col-sm-9">
+            <pre v-highlightjs:json="resource.request.headers"></pre>
+          </div>
+        </div>
+
+        <!-- body -->
+        <div class="row">
+          <div class="col-sm-3">
+            <label>Body</label>
+          </div>
+          <div class="col-sm-9">
+            <pre v-highlightjs:json="resource.request.body"></pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================================================================= -->
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <span class="glyphicon glyphicon-arrow-down"></span>
+          Response
+        </h3>
+      </div>
+      <div class="panel-body">
+
+        <!-- status code -->
+        <div class="row">
+          <div class="col-sm-3">
+            <label>Status code</label>
+          </div>
+          <div class="col-sm-9">
+            {{ resource.response.statusCode || 200 }}
+          </div>
+        </div>
+
+        <!-- headers -->
+        <div class="row">
+          <div class="col-sm-3">
+            <label>Headers</label>
+          </div>
+          <div class="col-sm-9">
+            <pre v-highlightjs:json="resource.response.headers"></pre>
+          </div>
+        </div>
+
+        <!-- body -->
+        <div class="row">
+          <div class="col-sm-3">
+            <label>Body</label>
+          </div>
+          <div class="col-sm-9">
+            <pre v-highlightjs:json="resource.response.body"></pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div v-if="view === 'raw'">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <textarea class="copyable" cols="30" rows="50">{{ resource | json }}</textarea>
+      </div>
+    </div>
+  </div>
+
+</div>

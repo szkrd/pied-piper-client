@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueCo from 'vue-co'
 import template from './prItem.html'
-import * as proxiedResourcesModel from '../../models/proxiedResources'
+import * as proxiedResourcesModel from '../../../models/proxiedResources'
+import UriTarget from './uriTarget'
 
 import joi from 'joi'
-import joiValidate from '../../utils/joiValidate'
+import joiValidate from '../../../utils/joiValidate'
 
 const paramsSchema = {
   project: joi.string().lowercase().token().max(64),
@@ -15,6 +16,7 @@ export default VueCo({
   template,
   data: () => ({
     ready: false,
+    view: 'formatted',
     resource: []
   }),
   route: {
@@ -31,5 +33,8 @@ export default VueCo({
       this.resource = item
       Vue.nextTick(() => { this.ready = true })
     }
+  },
+  components: {
+    UriTarget
   }
 })
