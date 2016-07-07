@@ -10,6 +10,7 @@ export default VueCo({
     ready: false,
     projects: [],
     config: { // we need some of the config object because of the watchers below
+      strict: null,
       recording: null,
       active: null,
       dump: null,
@@ -20,6 +21,9 @@ export default VueCo({
   watch: {
     'config.recording' (value) {
       this.updateKey('recording', value)
+    },
+    'config.strict' (value) {
+      this.updateKey('strict', value)
     },
     'config.active' (value) {
       this.updateKey('active', value)
