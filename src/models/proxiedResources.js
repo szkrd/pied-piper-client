@@ -9,6 +9,10 @@ export function get (project, id) {
   return getJSON(`${API_URL}/proxied-resource/${project}/${id}`)
 }
 
+export function set (project, id, value) {
+  return putJSON(`${API_URL}/proxied-resource/${project}/${id}`, value)
+}
+
 export function remove (project, id) {
   return deleteJSON(`${API_URL}/proxied-resource/${project}/${id}`)
 }

@@ -18,7 +18,7 @@ export default VueCo({
   data: () => ({
     ready: false,
     view: storage.activeResourceViewerTab || 'formatted',
-    resource: []
+    resource: {}
   }),
   route: {
     activate () {

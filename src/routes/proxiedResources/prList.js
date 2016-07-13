@@ -47,13 +47,6 @@ export default VueCo({
     deleteAllResources: function * () {
       yield proxiedResourcesModel.removeAll(this.project)
       yield this.getAll()
-    },
-    // TODO move to view/link
-    openResource (resource) {
-      this.$router.go({ name: 'resource', params: {
-        project: this.project,
-        id: resource._id
-      }})
     }
   }
 })

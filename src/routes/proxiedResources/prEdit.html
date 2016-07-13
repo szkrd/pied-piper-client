@@ -1,0 +1,46 @@
+<div v-if="ready">
+  <div class="row">
+    <div class="col-md-8">
+      <form @submit="submit">
+
+        <!-- disabled -->
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" v-model="resource.disabled" />
+              disabled
+            </label>
+          </div>
+        </div>
+
+        <!-- sleep -->
+        <div class="form-group">
+          <div class="input-group input-group--label-group-btn">
+            <label for="res-sleep">Sleep (sec)</label>
+            <input type="number" min="0" max="10" class="form-control" id="res-sleep" v-model="resource.sleep" />
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">set</button>
+            </span>
+          </div>
+        </div>
+
+        <!-- request -->
+        <div class="form-group">
+          <label>Request</label>
+          <textarea class="form-control" rows="10" v-model="resourceRequestJson"></textarea>
+        </div>
+
+        <!-- response -->
+        <div class="form-group">
+          <label>Response</label>
+          <textarea class="form-control" rows="10" v-model="resourceResponseJson"></textarea>
+        </div>
+
+        <div class="pull-right">
+          <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

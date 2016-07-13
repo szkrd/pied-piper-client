@@ -5,7 +5,8 @@ import RouteConfig from './routes/config/config'
 import RouteHome from './routes/home/home'
 import RouteProxiedResources from './routes/proxiedResources/proxiedResources'
 import RouteProxiedResourceList from './routes/proxiedResources/prList'
-import RouteProxiedResourceItem from './routes/proxiedResources/prItem/prItem'
+import RouteProxiedResourceEdit from './routes/proxiedResources/prEdit'
+import RouteProxiedResourceView from './routes/proxiedResources/prItem/prItem'
 import HighlightJsDirective from './directives/highlightJs'
 import JsonViewerDirective from './directives/jsonViewer'
 
@@ -38,7 +39,11 @@ router.map({
   },
   '/proxied-resource/:project/:id': {
     name: 'resource',
-    component: RouteProxiedResourceItem
+    component: RouteProxiedResourceView
+  },
+  '/proxied-resource/:project/:id/edit': {
+    name: 'resource-edit',
+    component: RouteProxiedResourceEdit
   }
 })
 
