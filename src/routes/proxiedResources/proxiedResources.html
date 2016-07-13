@@ -4,7 +4,9 @@
   <div>
     <span href="#" v-for="project in projects">
       <a v-link="{ path: project.url }" class="btn btn-default">
-        {{project.name}}
+        <span :class="{strike: project.disabled}">
+          {{project.name}}
+        </span>
       </a>
     </span>
   </div>

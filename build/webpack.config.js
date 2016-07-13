@@ -5,8 +5,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
-    app: [ 'babel-polyfill', './src/app.js' ],
-    vendor: [ 'vue', 'vue-router', 'jquery', 'bootstrap' ]
+    app: [
+      'babel-polyfill',
+      './src/app.js'
+    ],
+    vendor: [
+      'vue',
+      'vue-router',
+      'jquery',
+      'bootstrap',
+      './node_modules/jquery.json-viewer/json-viewer/jquery.json-viewer.js' // no main :(
+    ]
   },
   output: {
     path: path.resolve(__dirname, '../dist'), // this MUST be an absolute path

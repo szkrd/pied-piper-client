@@ -1,8 +1,6 @@
 import log from 'loglevel'
 import hljs from 'highlight.js'
 
-window.hljs = hljs
-
 export default {
   update: function (value) {
     if (value === undefined) {

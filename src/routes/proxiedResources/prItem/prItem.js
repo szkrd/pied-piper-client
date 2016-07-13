@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueCo from 'vue-co'
 import template from './prItem.html'
+import storage from '../../../models/persistentStorage'
 import * as proxiedResourcesModel from '../../../models/proxiedResources'
 import UriTarget from './uriTarget'
 
@@ -16,7 +17,7 @@ export default VueCo({
   template,
   data: () => ({
     ready: false,
-    view: 'formatted',
+    view: storage.activeResourceViewerTab || 'formatted',
     resource: []
   }),
   route: {
@@ -32,6 +33,11 @@ export default VueCo({
       const item = yield proxiedResourcesModel.get(project, id)
       this.resource = item
       Vue.nextTick(() => { this.ready = true })
+    }
+  },
+  watch: {
+    view (tab) {
+      storage.activeResourceViewerTab = tab
     }
   },
   components: {

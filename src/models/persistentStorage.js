@@ -16,5 +16,14 @@ export default Object.freeze({
   },
   set activeProject (name) {
     write(() => { store.activeProject = name })
+  },
+  get activeResourceViewerTab () {
+    return store.activeResourceViewerTab
+  },
+  set activeResourceViewerTab (tab) {
+    if (!['json', 'formatted', 'raw'].includes(tab)) {
+      throw new Error('Unknown tab')
+    }
+    write(() => { store.activeResourceViewerTab = tab })
   }
 })

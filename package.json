@@ -39,6 +39,7 @@
     "html-webpack-plugin": "2.21.0",
     "joi": "8.4.2",
     "jquery": "3.0.0",
+    "jquery.json-viewer": "1.1.0",
     "less": "2.7.1",
     "less-loader": "2.2.3",
     "loglevel": "1.4.1",

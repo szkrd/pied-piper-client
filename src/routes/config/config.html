@@ -71,6 +71,9 @@
         <div class="form-group">
           <div class="input-group input-group--label-group-btn">
             <label for="rt-sleep">Global sleep (sec)</label>
+            <p class="unimportant">
+              Affects all requests, use it to simulate slow responses. Blocking via yield/await.
+            </p>
             <input type="number" min="0" max="10" class="form-control" id="rt-sleep" v-model="config.sleep" />
             <span class="input-group-btn">
               <button class="btn btn-default" type="button" @click="updateSleep">set</button>
@@ -79,6 +82,9 @@
         </div>
         <div class="form-group">
           <label>Disable projects</label>
+          <p class="unimportant">
+            Disabled projects are inactive (same effect as active:false above).
+          </p>
           <div class="horizontal-checkbox-group">
             <span class="checkbox" v-for="project in projects">
               <label>

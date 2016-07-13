@@ -7,12 +7,14 @@ import RouteProxiedResources from './routes/proxiedResources/proxiedResources'
 import RouteProxiedResourceList from './routes/proxiedResources/prList'
 import RouteProxiedResourceItem from './routes/proxiedResources/prItem/prItem'
 import HighlightJsDirective from './directives/highlightJs'
+import JsonViewerDirective from './directives/jsonViewer'
 
 import './app.less'
 import template from './app.html'
 
 Vue.use(VueRouter)
 Vue.directive('highlightjs', HighlightJsDirective)
+Vue.directive('jsonviewer', JsonViewerDirective)
 
 document.body.setAttribute('id', 'app')
 const router = new VueRouter({
