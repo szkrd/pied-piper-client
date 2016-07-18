@@ -1,8 +1,10 @@
 /*global API_URL*/
 import { getJSON, putJSON, deleteJSON } from './utils/fetch'
+import qs from 'qs'
 
-export function getAll (project) {
-  return getJSON(`${API_URL}/proxied-resources/${project}`)
+export function getAll (project, query) {
+  query = qs.stringify(query)
+  return getJSON(`${API_URL}/proxied-resources/${project}?${query}`)
 }
 
 export function get (project, id) {

@@ -8,12 +8,27 @@
   <caption>Requests and responses</caption>
   <thead>
     <tr>
-      <th>method</th>
-      <th>url</th>
-      <th>status code</th>
-      <th>sleep</th>
-      <th>disabled</th>
-      <th>actions</th>
+      <th @click="sort('request.method')">
+        method
+      </th>
+      <th @click="sort('request.uri')">
+        url
+      </th>
+      <th @click="sort('response.statusCode')">status
+        code
+      </th>
+      <th @click="sort('lastModified')">last
+        modified
+      </th>
+      <th @click="sort('sleep')">
+        sleep
+      </th>
+      <th>
+        disabled
+      </th>
+      <th>
+        actions
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -33,7 +48,10 @@
           {{resource._id}}
         </span>
       </td>
-      <td>{{resource.response.statusCode}}</td>
+      <td>
+        <status-code :value="resource.response.statusCode"></status-code>
+      </td>
+      <td>{{resource.lastModified | moment}}</td>
       <td>{{resource.sleep}}</td>
       <td>
         <input type="checkbox" v-model="resource.disabled" @change="toggleResource(resource)" />

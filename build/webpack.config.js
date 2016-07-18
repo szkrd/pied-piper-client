@@ -12,6 +12,7 @@ module.exports = {
     vendor: [
       'vue',
       'vue-router',
+      'moment',
       'jquery',
       'bootstrap',
       './node_modules/jquery.json-viewer/json-viewer/jquery.json-viewer.js' // no main :(

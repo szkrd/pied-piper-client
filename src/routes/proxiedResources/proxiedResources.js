@@ -30,13 +30,18 @@ export default VueCo({
       }))
       Vue.nextTick(() => { this.ready = true })
 
+      // let router handle things
+      if (this.$route.params.project) {
+        return
+      }
+
       // if we have a stored project name and that one still exists...
       let activeProject = storage.activeProject
       if (!items.includes(activeProject)) {
         activeProject = storage.activeProject = ''
       }
       if (activeProject) {
-        this.$router.replace(`/proxied-resources/${activeProject}`)
+        this.$router.go(`/proxied-resources/${activeProject}`)
       }
     }
   }

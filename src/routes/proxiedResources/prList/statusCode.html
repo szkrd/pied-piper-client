@@ -1,0 +1,14 @@
+<span>
+  <span class="label label-default" v-if="value < 200">
+    {{value}}
+  </span>
+  <span class="label label-success" v-if="value >= 200 && value < 400">
+    {{value}}
+  </span>
+  <span class="label label-warning" v-if="value >= 400 && value < 500">
+    {{value}}
+  </span>
+  <span class="label label-danger" v-if="value >= 500">
+    {{value}}
+  </span>
+</span>

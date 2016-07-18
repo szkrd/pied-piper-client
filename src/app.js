@@ -4,11 +4,12 @@ import VueRouter from 'vue-router'
 import RouteConfig from './routes/config/config'
 import RouteHome from './routes/home/home'
 import RouteProxiedResources from './routes/proxiedResources/proxiedResources'
-import RouteProxiedResourceList from './routes/proxiedResources/prList'
+import RouteProxiedResourceList from './routes/proxiedResources/prList/prList'
 import RouteProxiedResourceEdit from './routes/proxiedResources/prEdit'
 import RouteProxiedResourceView from './routes/proxiedResources/prItem/prItem'
 import HighlightJsDirective from './directives/highlightJs'
 import JsonViewerDirective from './directives/jsonViewer'
+import MomentFilter from './filters/moment'
 
 import './app.less'
 import template from './app.html'
@@ -16,6 +17,7 @@ import template from './app.html'
 Vue.use(VueRouter)
 Vue.directive('highlightjs', HighlightJsDirective)
 Vue.directive('jsonviewer', JsonViewerDirective)
+Vue.filter('moment', MomentFilter)
 
 document.body.setAttribute('id', 'app')
 const router = new VueRouter({
@@ -30,6 +32,7 @@ router.map({
     component: RouteConfig
   },
   '/proxied-resources': {
+    name: 'resources',
     component: RouteProxiedResources,
     subRoutes: {
       '/:project': {
