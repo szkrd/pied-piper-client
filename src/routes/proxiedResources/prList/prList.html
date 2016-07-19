@@ -1,72 +1,18 @@
-<div class="pull-right">
-  <button type="button" class="btn btn-xs btn-danger" @click="deleteAllResources()" v-if="resources.length">
-    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-    Flush all
-  </button>
-</div>
-<table class="table table-hover">
-  <caption>Requests and responses</caption>
-  <thead>
-    <tr>
-      <th @click="sort('request.method')">
-        method
-      </th>
-      <th @click="sort('request.uri')">
-        url
-      </th>
-      <th @click="sort('response.statusCode')">status
-        code
-      </th>
-      <th @click="sort('lastModified')">last
-        modified
-      </th>
-      <th @click="sort('sleep')">
-        sleep
-      </th>
-      <th>
-        disabled
-      </th>
-      <th>
-        actions
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="resource in resources" :class="{
-      info: resource.request.method === 'GET',
-      warning: resource.request.method === 'POST',
-      success: resource.request.method === 'PUT',
-      danger: resource.request.method === 'DELETE'
-    }">
-      <td>{{resource.request.method}}</td>
-      <td>
-        <a v-link="{ name: 'resource', params: { project: project, id: resource._id }}">
-          {{resource.request.uri}}
-        </a>
-        <br>
-        <span class="unimportant">
-          {{resource._id}}
+<div v-if="ready">
+  <h2>Proxied resources</h2>
+
+  <div>
+    <span v-for="project in projects">
+      <a v-link="{ path: project.url }" class="btn btn-default">
+        <span :class="{strike: project.disabled}">
+          {{project.name}}
         </span>
-      </td>
-      <td>
-        <status-code :value="resource.response.statusCode"></status-code>
-      </td>
-      <td>{{resource.lastModified | moment}}</td>
-      <td>{{resource.sleep}}</td>
-      <td>
-        <input type="checkbox" v-model="resource.disabled" @change="toggleResource(resource)" />
-      </td>
-      <td class="nowrap">
-        <a v-link="{ name: 'resource', params: { project: project, id: resource._id }}" class="btn btn-xs btn-info">
-          <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-        </a>
-        <a v-link="{ name: 'resource-edit', params: { project: project, id: resource._id }}" class="btn btn-xs btn-warning">
-          <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-        </a>
-        <button type="button" class="btn btn-xs btn-danger" @click="deleteResource(resource)">
-          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </a>
+    </span>
+  </div>
+
+  <div v-if="resources.length">
+    <partial name="innerTemplate"></partial>
+  </div>
+</div>
+
