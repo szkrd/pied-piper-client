@@ -1,4 +1,4 @@
-import qs from 'qs'
+import qs from 'querystring'
 import Vue from 'vue'
 import VueCo from 'vue-co'
 import template from './prList.html'

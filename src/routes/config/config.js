@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueCo from 'vue-co'
 import template from './config.html'
+import { emit, on } from '../../utils/eventBus'
 import * as configModel from '../../models/config'
 import * as projectsModel from '../../models/projects'
 
@@ -26,7 +27,11 @@ export default VueCo({
       this.updateKey('strict', value)
     },
     'config.active' (value) {
+      if (this.asleep) {
+        return
+      }
       this.updateKey('active', value)
+      emit('ACTIVE_CHANGED', value)
     },
     'config.dump' (value) {
       this.updateKey('dump', value)
@@ -39,6 +44,9 @@ export default VueCo({
     'config.disabledProjects' (value) {
       this.updateKey('disabledProjects', value)
     }
+  },
+  created () {
+    on('ACTIVE_CHANGED', (state) => this.onActiveChangeEvent(state))
   },
   route: {
     activate () {
@@ -65,6 +73,14 @@ export default VueCo({
         return
       }
       configModel.updateKey(key, value)
+    },
+    onActiveChangeEvent (state) {
+      if (this.config.active === state) {
+        return
+      }
+      this.asleep = true
+      this.config.active = state
+      Vue.nextTick(() => { this.asleep = false })
     }
   }
 })

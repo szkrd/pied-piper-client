@@ -9,6 +9,7 @@ import RouteProxiedResourceView from './routes/proxiedResources/prItem/prItem'
 import HighlightJsDirective from './directives/highlightJs'
 import JsonViewerDirective from './directives/jsonViewer'
 import MomentFilter from './filters/moment'
+import GlobalActiveSwitch from './components/globalActiveSwitch/globalActiveSwitch'
 
 import './app.less'
 import template from './app.html'
@@ -52,6 +53,10 @@ router.map({
   }
 })
 
-const App = Vue.extend({ template, replace: false })
+const components = {
+  GlobalActiveSwitch
+}
+
+const App = Vue.extend({ template, replace: false, components })
 
 router.start(App, '#app')

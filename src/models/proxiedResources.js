@@ -1,6 +1,6 @@
 /*global API_URL*/
 import { getJSON, putJSON, deleteJSON } from './utils/fetch'
-import qs from 'qs'
+import qs from 'querystring'
 
 export function getAll (project, query) {
   query = qs.stringify(query)
