@@ -1,3 +1,4 @@
+// const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const config = require('../config/client')
 const path = require('path')
 const webpack = require('webpack')
@@ -20,11 +21,12 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../dist'), // this MUST be an absolute path
-    filename: 'app_bundle.js'
+    publicPath: '/', // boom, I'll come up w smg better...
+    filename: 'app.js'
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin(
-      'vendor', 'vendor_bundle.js'
+      'vendor', 'vendor.js'
     ),
     new HtmlWebpackPlugin({
       title: 'Pied Piper Admin'
@@ -39,7 +41,15 @@ module.exports = {
     new webpack.NormalModuleReplacementPlugin(
       /^(net|dns)$/,
       path.resolve(__dirname, '../src/utils/serverShim.js')
-    )
+    ),
+    new webpack.HotModuleReplacementPlugin() // , TODO: fix browsersync
+    // new BrowserSyncPlugin({
+    //   host: 'localhost',
+    //   port: 3096,
+    //   proxy: 'http://localhost:3098/'
+    // }, {
+    //   reload: false
+    // })
   ],
   module: {
     loaders: [

@@ -27,17 +27,26 @@
         <!-- request -->
         <div class="form-group">
           <label>Request</label>
-          <textarea class="form-control" rows="10" v-model="resourceRequestJson"></textarea>
+          <textarea class="form-control" rows="10"
+                    v-codemirror="resourceRequestJson"
+                    :maximized="requestEditorMaximized"
+                    @blur="resourceRequestEditorBlur"></textarea>
         </div>
 
         <!-- response -->
         <div class="form-group">
           <label>Response</label>
-          <textarea class="form-control" rows="10" v-model="resourceResponseJson"></textarea>
+          <textarea class="form-control" rows="10"
+                    v-codemirror="resourceResponseJson"
+                    :maximized="responseEditorMaximized"
+                    @blur="resourceResponseEditorBlur"></textarea>
         </div>
 
         <div class="pull-right">
-          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="submit" class="btn btn-default"
+                  :disabled="!resourceRequestJsonValid || !resourceResponseJsonValid">
+            Submit
+          </button>
         </div>
 
       </form>

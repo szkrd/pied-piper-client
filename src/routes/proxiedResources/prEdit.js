@@ -20,12 +20,28 @@ export default VueCo({
     id: '',
     resource: {},
     resourceRequestJson: '',
-    resourceResponseJson: ''
+    resourceResponseJson: '',
+    resourceRequestJsonValid: false,
+    resourceResponseJsonValid: false,
+    requestEditorMaximized: false,
+    responseEditorMaximized: false
   }),
   route: {
     activate () {
       this.onActivate()
     }
+  },
+  watch: {
+    resourceRequestJson () {
+      this._validateResourceRequestJson()
+    },
+    resourceResponseJson () {
+      this._validateResourceResponseJson()
+    }
+  },
+  created () {
+    this._validateResourceRequestJson = _.debounce(this.validateResourceRequestJson, 1000)
+    this._validateResourceResponseJson = _.debounce(this.validateResourceResponseJson, 1000)
   },
   methods: {
     onActivate: function * () {
@@ -38,9 +54,30 @@ export default VueCo({
       this.resourceResponseJson = JSON.stringify(item.response, null, '  ')
       Vue.nextTick(() => { this.ready = true })
     },
+    validateResourceRequestJson () {
+      try {
+        JSON.parse(this.resourceRequestJson)
+        this.resourceRequestJsonValid = true
+      } catch (err) {
+        this.resourceRequestJsonValid = false
+      }
+    },
+    validateResourceResponseJson () {
+      try {
+        JSON.parse(this.resourceResponseJson)
+        this.resourceResponseJsonValid = true
+      } catch (err) {
+        this.resourceResponseJsonValid = false
+      }
+    },
+    resourceRequestEditorBlur () {
+      this.validateResourceRequestJson()
+    },
+    resourceResponseEditorBlur () {
+      this.validateResourceResponseJson()
+    },
     submit: function * (e) {
       e.preventDefault()
-      // TODO use codemirror
       const resource = {
         disabled: this.resource.disabled,
         sleep: this.resource.sleep,

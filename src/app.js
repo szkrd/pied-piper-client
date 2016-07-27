@@ -6,6 +6,7 @@ import RouteHome from './routes/home/home'
 import RouteProxiedResourceList from './routes/proxiedResources/prList/prList'
 import RouteProxiedResourceEdit from './routes/proxiedResources/prEdit'
 import RouteProxiedResourceView from './routes/proxiedResources/prItem/prItem'
+import CodeMirrorDirective from './directives/codeMirror'
 import HighlightJsDirective from './directives/highlightJs'
 import JsonViewerDirective from './directives/jsonViewer'
 import MomentFilter from './filters/moment'
@@ -15,6 +16,7 @@ import './app.less'
 import template from './app.html'
 
 Vue.use(VueRouter)
+Vue.directive('codemirror', CodeMirrorDirective)
 Vue.directive('highlightjs', HighlightJsDirective)
 Vue.directive('jsonviewer', JsonViewerDirective)
 Vue.filter('moment', MomentFilter)
