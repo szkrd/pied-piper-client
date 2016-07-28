@@ -17,3 +17,28 @@
 .heavy, .bold {
   font-weight: bold;
 }
+
+.covered {
+  overflow: hidden;
+
+  &:after {
+    content: " ";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.8;
+    animation: fadeIn 0.3s ease-out;
+
+    @-webkit-keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 0.8; }
+    }
+  }
+
+  .navbar-fixed-top {
+    z-index: 0;
+  }
+}

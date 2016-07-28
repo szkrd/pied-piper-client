@@ -3,20 +3,28 @@ import $ from 'jquery'
 import 'codemirror/mode/javascript/javascript'
 import CodeMirror from 'codemirror/lib/codemirror'
 
+const template = `
+  <div class="codemirror-wrapper">
+    <a class="resize-button">
+      <span class="glyphicon glyphicon-fullscreen"></span>
+    </a>
+  </div>
+`.replace(/\s{2,}/g, ' ').replace(/\n/g, '')
+
 // use it with strings, to fall back to plain textarea
-// use v-model instead of v-codemirror
+// (use v-model instead of v-codemirror)
 export default {
-  params: ['maximized'],
   twoWay: true,
-  paramWatchers: {
-    maximized: function (value) {
-      this.$cmEl.toggleClass('maximized', value)
-      this.cm.refresh()
-    }
+  resize: function () {
+    $('body').toggleClass('covered')
+    this.$cmEl.toggleClass('maximized')
+    this.cm.refresh()
   },
   bind: function () {
     const $el = this.$el = $(this.el)
-    const $cmEl = this.$cmEl = $('<div class="codemirror-wrapper"></div>')
+    const $cmEl = this.$cmEl = $(template)
+
+    // set up wrapper and textarea
     this.size = {
       width: $el.outerWidth,
       height: $el.outerHeight
@@ -25,11 +33,13 @@ export default {
       width: this.size.width,
       height: this.size.height
     }).insertAfter(this.el)
-    $el.hide()
-  },
-  update: function (value) {
+    $cmEl.find('a').on('click', this.resize.bind(this))
+    $el.on('focus', () => this.cm.focus())
+    $el.addClass('codemirror-fake-hide')
+
+    // set up cm
     this.cm = CodeMirror(this.$cmEl.get(0), {
-      value,
+      value: '',
       tabSize: 2,
       mode: 'javascript'
     })
@@ -42,6 +52,9 @@ export default {
       var event = new FocusEvent('blur', {view: window, bubbles: false, cancelable: true})
       this.$el.get(0).dispatchEvent(event)
     })
+  },
+  update: function (value) {
+    this.cm.setValue(value)
     Vue.nextTick(() => this.cm.refresh())
   }
 }

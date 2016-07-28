@@ -26,19 +26,17 @@
 
         <!-- request -->
         <div class="form-group">
-          <label>Request</label>
-          <textarea class="form-control" rows="10"
+          <label for="request-json-editor">Request</label>
+          <textarea class="form-control" rows="10" id="request-json-editor"
                     v-codemirror="resourceRequestJson"
-                    :maximized="requestEditorMaximized"
                     @blur="resourceRequestEditorBlur"></textarea>
         </div>
 
         <!-- response -->
         <div class="form-group">
-          <label>Response</label>
-          <textarea class="form-control" rows="10"
+          <label for="response-json-editor">Response</label>
+          <textarea class="form-control" rows="10" id="response-json-editor"
                     v-codemirror="resourceResponseJson"
-                    :maximized="responseEditorMaximized"
                     @blur="resourceResponseEditorBlur"></textarea>
         </div>
 

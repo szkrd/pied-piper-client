@@ -1,0 +1,60 @@
+// display none on the textarea would break focus forwarding
+.codemirror-fake-hide {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0;
+}
+
+.codemirror-wrapper {
+  border: 1px solid @pre-border-color;
+  position: relative;
+
+  // override CodeMirror defaults
+  .CodeMirror {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    height: 100%;
+  }
+  .CodeMirror-vscrollbar, .CodeMirror-hscrollbar {
+    opacity: 0.2;
+    transition: opacity 0.2s;
+  }
+  .CodeMirror-vscrollbar:hover, .CodeMirror-hscrollbar:hover {
+    opacity: 0.8;
+  }
+
+  .resize-button {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    border: 1px solid @pre-border-color;
+    background-color: #fff;
+    text-align: center;
+    z-index: 1;
+    font-size: 8px;
+    color: @gray-dark;
+    transition: border-color 0.2s ease-out;
+    cursor: pointer;
+    border-radius: @border-radius-base;
+
+    &:hover {
+      border-color: @gray-dark;
+    }
+  }
+
+  &.maximized {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    box-shadow: 0 0 10px #000;
+    background-color: #fff;
+    z-index: 10;
+  }
+}

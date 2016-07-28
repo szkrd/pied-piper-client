@@ -22,9 +22,7 @@ export default VueCo({
     resourceRequestJson: '',
     resourceResponseJson: '',
     resourceRequestJsonValid: false,
-    resourceResponseJsonValid: false,
-    requestEditorMaximized: false,
-    responseEditorMaximized: false
+    resourceResponseJsonValid: false
   }),
   route: {
     activate () {
