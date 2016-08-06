@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import qs from 'querystring'
 import Vue from 'vue'
 import VueCo from 'vue-co'
@@ -7,12 +8,16 @@ import * as projectsModel from '../../../models/projects'
 import * as configModel from '../../../models/config'
 import storage from '../../../models/persistentStorage'
 import StatusCode from './statusCode'
+import Sse from '../../../utils/sse'
 
 import joi from 'joi'
 import joiValidate from '../../../utils/joiValidate'
 
 import innerTemplate from './prListInner.html'
 import sortableIcon from './prListSortableIcon.html'
+
+// kinda flaky
+const allowSse = true
 
 const paramsSchema = {
   project: joi.string().lowercase().token().max(64)
@@ -56,6 +61,9 @@ export default VueCo({
     activate () {
       this.onActivate()
     },
+    deactivate () {
+      this.onDeactivate()
+    },
     data () {
       this.onData()
     }
@@ -84,12 +92,26 @@ export default VueCo({
       Vue.nextTick(() => { this.ready = true })
     },
 
+    onDeactivate () {
+      this.sseClose()
+    },
+
     // on view reuse (query or param change)
     onData: function * () {
       this.params = joiValidate(this.$route.params, paramsSchema)
       this.query = joiValidate(this.$route.query, querySchema)
       if (!this.params.project) {
         return this.redirectToLastActiveProject()
+      }
+
+      if ((this.project !== this.params.project) && this.params.project) {
+        this.sseClose()
+      }
+
+      // initialize sse channel
+      if (!this.sse && allowSse) {
+        this.sse = new Sse(`/proxied-resources/${this.params.project}`)
+        this.sse.on('proxiedResource.save', this.onSseEvent)
       }
 
       this.sortKey = this.query.sortKey || this.sortKey
@@ -101,6 +123,19 @@ export default VueCo({
 
       this.project = project
       yield this.getAll()
+    },
+
+    // a new item has been added to the db
+    onSseEvent (data) {
+      this.resources.unshift(data)
+      this.resources = _.orderBy(this.resources, this.sortKey, this.sortDir > 0 ? 'asc' : 'desc')
+    },
+
+    sseClose () {
+      if (this.sse) {
+        this.sse.close()
+        delete this.sse
+      }
     },
 
     // if we have a stored project name and that one still exists
