@@ -22,7 +22,6 @@ export default VueCo({
   watch: {
     // quick hack to flip the favicon
     active (val) {
-      console.log(1, val, favIcons, +val, favIcons[+val])
       document.querySelector('link[rel="shortcut icon"]').href = favIcons[+val]
     }
   },
