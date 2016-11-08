@@ -29,7 +29,8 @@ module.exports = {
       'vendor', 'vendor.js'
     ),
     new HtmlWebpackPlugin({
-      title: 'Pied Piper Admin'
+      title: 'Pied Piper Admin',
+      favicon: path.resolve(__dirname, '../src/assets/favicon_0.ico')
     }),
     new webpack.DefinePlugin({
       API_URL: JSON.stringify(config.apiUrl)
@@ -75,7 +76,7 @@ module.exports = {
         loader: 'url-loader?limit=10000&minetype=application/font-woff'
       },
       {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.(ttf|eot|svg|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader'
       }
     ]
