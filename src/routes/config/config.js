@@ -41,6 +41,11 @@ export default VueCo({
         this.config.sleep = 0
       }
     },
+    'config.retryLockTimeout' (value) {
+      if (value < 0) {
+        this.config.retryLockTimeout = 0
+      }
+    },
     'config.disabledProjects' (value) {
       this.updateKey('disabledProjects', value)
     }
@@ -67,6 +72,9 @@ export default VueCo({
     },
     updateSleep () {
       this.updateKey('sleep', this.config.sleep)
+    },
+    updateRetryLockTimeout () {
+      this.updateKey('retryLockTimeout', this.config.retryLockTimeout)
     },
     updateKey: function (key, value) {
       if (!this.ready) {
