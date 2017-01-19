@@ -17,3 +17,9 @@ Uses: webpack, babel, generators, vue, vue-router, joi, bootstrap, sse.
 * `PORT` || 8080
 * `API_URL` || 'http://localhost:3100/api',
 * `DEV_PORT` || 3000
+
+## TODO
+
+- [ ] authentication (?)
+- [ ] error messages, notification
+- [ ] filter fields for proxied resources (client side)
