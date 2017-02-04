@@ -22,4 +22,5 @@ Uses: webpack, babel, generators, vue, vue-router, joi, bootstrap, sse.
 
 - [ ] authentication (?)
 - [ ] error messages, notification
-- [ ] filter fields for proxied resources (client side)
+- [ ] filter fields for proxied resources (client side only)
+- [ ] use toggle project endpoint instead of partial config PUT
