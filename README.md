@@ -19,7 +19,7 @@ Uses: webpack, babel, generators, vue, vue-router, joi, bootstrap, sse.
 * `DEV_PORT` || 3000
 * https settings
   * `HTTPS_KEY`=/foo/bar/server.key
-  * `HTTPS_CERT`=/foo/bar/server.pem
+  * `HTTPS_CERT`=/foo/bar/server.crt (or pem)
 
 To enable https, use all https options.
 
