@@ -15,8 +15,13 @@ Uses: webpack, babel, generators, vue, vue-router, joi, bootstrap, sse.
 .env file supported
 
 * `PORT` || 8080
-* `API_URL` || 'http://localhost:3100/api',
+* `API_URL` || 'http://localhost:3100/api'
 * `DEV_PORT` || 3000
+* https settings
+  * `HTTPS_KEY`=/foo/bar/server.key
+  * `HTTPS_CERT`=/foo/bar/server.pem
+
+To enable https, use all https options.
 
 ## TODO
 

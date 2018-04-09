@@ -5,5 +5,5 @@ const port = process.env.PORT || 8080
 
 app.use(serve('./dist'))
 
-app.listen(port)
-console.log(`listening on port ${port}`)
+app.listen(port, 'localhost')
+console.log(`listening on port ${port}`, 'localhost')
